@@ -14,7 +14,7 @@ Each module will be tested as much as it can be. This may include a mix of unit 
 
 While the title of this gif says 'MVP', this is what you can expect the todo list app in each module to look like. A landing page with a list of sample items, a floating action button that leads to an add task screen, where you can enter the task and be sent back to the main screen. 
 
-![](images/sample.gif)
+<img src="/images/sample.gif" style="height: 640px; width: 400px;">
 
 ## Contributions / Requests
 
