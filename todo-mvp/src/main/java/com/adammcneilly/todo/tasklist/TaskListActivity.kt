@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : AppCompatActivity(), TaskListContract.View {
     private val taskAdapter = TaskAdapter()
-    private val presenter = TaskListPresenter(this, TaskListService())
+    private val presenter = TaskListPresenter(this, TaskRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
