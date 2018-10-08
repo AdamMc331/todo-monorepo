@@ -27,6 +27,9 @@ allprojects {
         constraintLayoutVersion = '2.0.0-alpha2'
         mockitoVersion = '2.23.0'
         mockitoKotlinVersion = '2.0.0-RC1'
+        androidTestVersion = '1.1.0-beta01'
+        espressoVersion = '3.1.0-beta01'
+        junitVersion = '4.12'
     }
 }
 
