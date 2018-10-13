@@ -4,36 +4,51 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.adammcneilly.todo.R
 import com.adammcneilly.todo.Task
 import kotlinx.android.synthetic.main.activity_add_task.*
 
-class AddTaskActivity : AppCompatActivity(), AddTaskContract.View {
-    private val presenter = AddTaskPresenter(this)
+class AddTaskActivity : AppCompatActivity() {
+    private lateinit var viewModel: AddTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
 
+        setupViewModel()
+        setupSubmitButton()
+    }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProviders.of(this).get(AddTaskViewModel::class.java)
+
+        viewModel.validTask.observe(this, Observer {
+            it?.let(this::returnTask)
+        })
+
+        viewModel.descriptionError.observe(this, Observer {
+            task_description.error = it
+        })
+    }
+
+    private fun setupSubmitButton() {
         submit_task.setOnClickListener {
-            presenter.submitButtonClicked()
+            submitTask()
         }
     }
 
-    override fun getTask(): Task {
+    private fun submitTask() {
         val description = task_description.text.toString()
-        return Task(description)
+        viewModel.submitTask(Task(description))
     }
 
-    override fun submitTask(task: Task) {
+    private fun returnTask(task: Task) {
         val intent = Intent()
         intent.putExtra(DESCRIPTION_KEY, task.description)
         setResult(Activity.RESULT_OK, intent)
         finish()
-    }
-
-    override fun showInvalidDescriptionError() {
-        task_description.error = "Description must not be empty."
     }
 
     companion object {

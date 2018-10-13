@@ -5,7 +5,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0-alpha13'
@@ -19,11 +19,15 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 
     ext {
+        minSdkVersion = 21
+        targetSdkVersion = 28
+        buildToolsVersion = '28.0.3'
         jetpackVersion = '1.0.0'
+        lifecycleVersion = '2.0.0'
         constraintLayoutVersion = '2.0.0-alpha2'
         mockitoVersion = '2.23.0'
         mockitoKotlinVersion = '2.0.0-RC1'
