@@ -1,11 +1,6 @@
 package com.adammcneilly.todo.addtask
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
-import com.adammcneilly.todo.R
 import com.adammcneilly.todo.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -20,26 +15,30 @@ class AddTaskActivityTest {
 
     @Test
     fun getTask() {
-        val emptyTask = Task("")
-        val validTask = Task("Blah")
+        val testDescription = "Blah"
 
-        onView(withId(R.id.task_description)).perform(clearText())
-        assertEquals(emptyTask, rule.activity?.getTask())
+        AddTaskRobot()
+                .description(testDescription)
 
-        onView(withId(R.id.task_description)).perform(clearText(), typeText("Blah"), closeSoftKeyboard())
-        assertEquals(validTask, rule.activity?.getTask())
+        val expectedTask = Task(testDescription)
+        assertEquals(expectedTask, rule.activity?.getTask())
     }
 
     @Test
     fun submitValidTask() {
-        onView(withId(R.id.task_description)).perform(clearText(), typeText("New Task"), closeSoftKeyboard())
-        onView(withId(R.id.submit_task)).perform(ViewActions.click())
+        AddTaskRobot()
+                .description("New Task")
+                .submit()
 
         assertTrue(rule.activity?.isFinishing == true)
     }
 
     @Test
     fun showInvalidDescriptionError() {
+        AddTaskRobot()
+                .description("")
+                .submit()
+                .assertDescriptionError("Description must not be empty.")
     }
 
 }

@@ -34,7 +34,7 @@ class AddTaskActivity : AppCompatActivity(), AddTaskContract.View {
     }
 
     override fun showInvalidDescriptionError() {
-        Toast.makeText(this, "Description must not be empty.", Toast.LENGTH_SHORT).show()
+        task_description.error = "Description must not be empty."
     }
 
     companion object {

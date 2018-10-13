@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.adammcneilly.todo.R
 import com.adammcneilly.todo.Task
+import com.adammcneilly.todo.addtask.AddTaskRobot
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -22,8 +23,11 @@ class TaskListActivityTest {
 
     @Test
     fun navigateToAddTask() {
-        onView(withId(R.id.fab)).perform(click())
-        onView(withId(R.id.add_task_layout)).check(matches(isDisplayed()))
+        TaskListRobot()
+                .add()
+
+        AddTaskRobot()
+                .assertDisplayed()
     }
 
     @Test
@@ -33,13 +37,16 @@ class TaskListActivityTest {
         val recyclerView = rule.activity?.findViewById<RecyclerView>(R.id.task_list)
         assertEquals(initialSize, recyclerView?.adapter?.itemCount)
 
-        onView(withId(R.id.fab)).perform(click())
-        onView(withId(R.id.add_task_layout)).check(matches(isDisplayed()))
+        TaskListRobot()
+                .add()
 
-        onView(withId(R.id.task_description)).perform(clearText(), typeText("New Task"), closeSoftKeyboard())
-        onView(withId(R.id.submit_task)).perform(click())
+        AddTaskRobot()
+                .assertDisplayed()
+                .description("New Task")
+                .submit()
 
-        onView(withId(R.id.task_list_layout)).check(matches(isDisplayed()))
+        TaskListRobot()
+                .assertDisplayed()
 
         val newSize = initialSize + 1
         assertEquals(newSize, recyclerView?.adapter?.itemCount)
@@ -52,12 +59,16 @@ class TaskListActivityTest {
         val recyclerView = rule.activity?.findViewById<RecyclerView>(R.id.task_list)
         assertEquals(initialSize, recyclerView?.adapter?.itemCount)
 
-        onView(withId(R.id.fab)).perform(click())
-        onView(withId(R.id.add_task_layout)).check(matches(isDisplayed()))
+        TaskListRobot()
+                .add()
+
+        AddTaskRobot()
+                .assertDisplayed()
 
         pressBack()
 
-        onView(withId(R.id.task_list_layout)).check(matches(isDisplayed()))
+        TaskListRobot()
+                .assertDisplayed()
 
         assertEquals(initialSize, recyclerView?.adapter?.itemCount)
     }
