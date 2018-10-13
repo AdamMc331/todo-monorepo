@@ -24,6 +24,9 @@ android:
     - sys-img-armeabi-v7a-android-28
     - sys-img-armeabi-v7a-android-17
 
+jdk:
+  - oraclejdk8
+
 # Emulator Management: Create, Start and Wait
 before_script:
   - echo no | android create avd --force -n test -t android-28 --abi armeabi-v7a
@@ -32,4 +35,4 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew clean build test connectedCheck--stacktrace
+  - ./gradlew clean build test --stacktrace
