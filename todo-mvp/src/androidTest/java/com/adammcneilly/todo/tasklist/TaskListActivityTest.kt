@@ -28,18 +28,10 @@ class TaskListActivityTest {
 
     @Test
     fun taskEnteredAddedToList() {
-        val sampleTasks = listOf(
-                Task("One"),
-                Task("Two"),
-                Task("Three")
-        )
-
-        rule.activity?.runOnUiThread {
-            rule.activity?.showTasks(sampleTasks)
-        }
+        val initialSize = 10 // Size of our default list that shows the dummy items
 
         val recyclerView = rule.activity?.findViewById<RecyclerView>(R.id.task_list)
-        assertEquals(sampleTasks.size, recyclerView?.adapter?.itemCount)
+        assertEquals(initialSize, recyclerView?.adapter?.itemCount)
 
         onView(withId(R.id.fab)).perform(click())
         onView(withId(R.id.add_task_layout)).check(matches(isDisplayed()))
@@ -49,24 +41,16 @@ class TaskListActivityTest {
 
         onView(withId(R.id.task_list_layout)).check(matches(isDisplayed()))
 
-        val newSize = sampleTasks.size + 1
+        val newSize = initialSize + 1
         assertEquals(newSize, recyclerView?.adapter?.itemCount)
     }
 
     @Test
     fun taskNotEnteredKeepsList() {
-        val sampleTasks = listOf(
-                Task("One"),
-                Task("Two"),
-                Task("Three")
-        )
-
-        rule.activity?.runOnUiThread {
-            rule.activity?.showTasks(sampleTasks)
-        }
+        val initialSize = 10 // Size of our default list that shows the dummy items
 
         val recyclerView = rule.activity?.findViewById<RecyclerView>(R.id.task_list)
-        assertEquals(sampleTasks.size, recyclerView?.adapter?.itemCount)
+        assertEquals(initialSize, recyclerView?.adapter?.itemCount)
 
         onView(withId(R.id.fab)).perform(click())
         onView(withId(R.id.add_task_layout)).check(matches(isDisplayed()))
@@ -75,22 +59,6 @@ class TaskListActivityTest {
 
         onView(withId(R.id.task_list_layout)).check(matches(isDisplayed()))
 
-        assertEquals(sampleTasks.size, recyclerView?.adapter?.itemCount)
-    }
-
-    @Test
-    fun showTasks() {
-        val sampleTasks = listOf(
-                Task("One"),
-                Task("Two"),
-                Task("Three")
-        )
-
-        rule.activity?.runOnUiThread {
-            rule.activity?.showTasks(sampleTasks)
-        }
-
-        val recyclerView = rule.activity?.findViewById<RecyclerView>(R.id.task_list)
-        assertEquals(sampleTasks.size, recyclerView?.adapter?.itemCount)
+        assertEquals(initialSize, recyclerView?.adapter?.itemCount)
     }
 }
