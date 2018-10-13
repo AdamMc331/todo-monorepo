@@ -19,7 +19,3 @@ While the title of this gif says 'MVP', this is what you can expect the todo lis
 ## Contributions / Requests
 
 If you find thewre are any architectures or libraries you're interested in that are not listed here, please submit an issue. If you'd like to contribute one yourself, please submit an issue and clarify that you would like to work on it. I will do my best to comment on issues that I am actively working on as well.
-
-### Disclaimer
-
-At the time of publishing this first README, I'm working on the MVP example and continuing to push to master. Once that first module is all set, the rest will be added via pull requests.
