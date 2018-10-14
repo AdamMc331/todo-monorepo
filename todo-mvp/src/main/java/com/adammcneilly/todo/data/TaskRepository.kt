@@ -1,7 +1,9 @@
-package com.adammcneilly.todo.tasklist
+package com.adammcneilly.todo.data
 
 import com.adammcneilly.todo.Task
- class TaskRepository : TaskListContract.Model {
+import com.adammcneilly.todo.tasklist.TaskListContract
+
+class TaskRepository : TaskListContract.Model {
     override fun getTasks(): List<Task> {
         return listOf(
                 Task("Sample task 1"),

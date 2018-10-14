@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.adammcneilly.todo.R
 import com.adammcneilly.todo.Task
 import com.adammcneilly.todo.addtask.AddTaskActivity
+import com.adammcneilly.todo.data.TaskRepository
 import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : AppCompatActivity(), TaskListContract.View {
