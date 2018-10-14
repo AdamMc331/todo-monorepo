@@ -6,9 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
+import com.adammcneilly.todo_core.BaseTask
 import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : AppCompatActivity(), TaskListContract.View {
@@ -33,7 +33,7 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
 
         if (requestCode == ADD_TASK_REQUEST && resultCode == Activity.RESULT_OK) {
             val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
-            val newTask = Task(description)
+            val newTask = BaseTask(description)
             taskAdapter.tasks += newTask
         }
     }
@@ -48,7 +48,7 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
         startActivityForResult(intent, ADD_TASK_REQUEST)
     }
 
-    override fun showTasks(tasks: List<Task>) {
+    override fun showTasks(tasks: List<BaseTask>) {
         taskAdapter.tasks = tasks
     }
 

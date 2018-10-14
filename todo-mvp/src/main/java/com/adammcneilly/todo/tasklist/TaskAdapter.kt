@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    var tasks: List<Task> = emptyList()
+    var tasks: List<BaseTask> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,7 +34,7 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val taskDescriptionTextView = view.findViewById<TextView>(R.id.task_description)
 
-        fun bindTask(task: Task) {
+        fun bindTask(task: BaseTask) {
             taskDescriptionTextView.text = task.description
         }
     }

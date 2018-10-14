@@ -1,6 +1,6 @@
 package com.adammcneilly.todo.tasklist
 
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
 import org.mockito.Mockito.mock
@@ -21,7 +21,7 @@ class TaskListPresenterTest {
 
     @Test
     fun getTasks() {
-        val testList = listOf(Task("Test"))
+        val testList = listOf(BaseTask("Test"))
 
         whenever(mockModel.getTasks()).thenReturn(testList)
 
