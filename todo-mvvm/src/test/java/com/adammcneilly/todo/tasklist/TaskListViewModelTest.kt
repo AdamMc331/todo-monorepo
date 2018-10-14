@@ -2,8 +2,8 @@ package com.adammcneilly.todo.tasklist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.adammcneilly.todo.Task
 import com.adammcneilly.todo.data.Repository
+import com.adammcneilly.todo_core.BaseTask
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -13,7 +13,7 @@ import org.mockito.Mockito.mock
 
 class TaskListViewModelTest {
     @Suppress("UNCHECKED_CAST")
-    private val mockRepo = mock(Repository::class.java) as Repository<Task>
+    private val mockRepo = mock(Repository::class.java) as Repository<BaseTask>
     private val viewModel = TaskListViewModel(mockRepo)
 
     @JvmField
@@ -23,7 +23,7 @@ class TaskListViewModelTest {
     @Test
     fun getTasks() {
         val sampleTasks = listOf(
-                Task("Task One")
+                BaseTask("Task One")
         )
 
         whenever(mockRepo.getItems()).thenReturn(sampleTasks)
@@ -31,8 +31,8 @@ class TaskListViewModelTest {
         assertEquals(sampleTasks, getTasksFromViewModel())
     }
 
-    private fun getTasksFromViewModel(): List<Task> {
-        val observer = LoggingObserver<List<Task>>()
+    private fun getTasksFromViewModel(): List<BaseTask> {
+        val observer = LoggingObserver<List<BaseTask>>()
         viewModel.tasks.observeForever(observer)
         assertNotNull(observer.value)
         return observer.value!!

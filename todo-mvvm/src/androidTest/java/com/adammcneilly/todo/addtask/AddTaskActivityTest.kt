@@ -1,8 +1,6 @@
 package com.adammcneilly.todo.addtask
 
 import androidx.test.rule.ActivityTestRule
-import com.adammcneilly.todo.Task
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test

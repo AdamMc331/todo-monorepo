@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 import kotlinx.android.synthetic.main.activity_add_task.*
 
 class AddTaskActivity : AppCompatActivity() {
@@ -41,10 +41,10 @@ class AddTaskActivity : AppCompatActivity() {
 
     private fun submitTask() {
         val description = task_description.text.toString()
-        viewModel.submitTask(Task(description))
+        viewModel.submitTask(BaseTask(description))
     }
 
-    private fun returnTask(task: Task) {
+    private fun returnTask(task: BaseTask) {
         val intent = Intent()
         intent.putExtra(DESCRIPTION_KEY, task.description)
         setResult(Activity.RESULT_OK, intent)

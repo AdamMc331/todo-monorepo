@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
+import com.adammcneilly.todo_core.BaseTask
 import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : AppCompatActivity() {
@@ -46,7 +46,7 @@ class TaskListActivity : AppCompatActivity() {
 
         if (requestCode == ADD_TASK_REQUEST && resultCode == Activity.RESULT_OK) {
             val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
-            val newTask = Task(description)
+            val newTask = BaseTask(description)
             adapter.tasks += newTask
         }
     }
