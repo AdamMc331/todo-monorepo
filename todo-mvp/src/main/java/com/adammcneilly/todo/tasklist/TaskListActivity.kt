@@ -9,10 +9,11 @@ import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo_core.BaseTaskAdapter
 import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : AppCompatActivity(), TaskListContract.View {
-    private val taskAdapter = TaskAdapter()
+    private val taskAdapter = BaseTaskAdapter()
     private val presenter = TaskListPresenter(this, TaskRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {

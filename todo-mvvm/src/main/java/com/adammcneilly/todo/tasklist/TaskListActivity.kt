@@ -13,10 +13,11 @@ import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo_core.BaseTaskAdapter
 import kotlinx.android.synthetic.main.activity_task_list.*
 
 class TaskListActivity : AppCompatActivity() {
-    private val adapter = TaskAdapter()
+    private val adapter = BaseTaskAdapter()
     private lateinit var viewModel: TaskListViewModel
 
     private val viewModelFactory = object : ViewModelProvider.Factory {
