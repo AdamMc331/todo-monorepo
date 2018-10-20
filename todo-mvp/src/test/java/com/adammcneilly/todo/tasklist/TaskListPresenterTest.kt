@@ -20,12 +20,12 @@ class TaskListPresenterTest {
     }
 
     @Test
-    fun getTasks() {
+    fun viewCreated() {
         val testList = listOf(BaseTask("Test"))
 
         whenever(mockModel.getTasks()).thenReturn(testList)
 
-        presenter.getTasks()
+        presenter.viewCreated()
         verify(mockView, Times(1)).showTasks(testList)
     }
 }
