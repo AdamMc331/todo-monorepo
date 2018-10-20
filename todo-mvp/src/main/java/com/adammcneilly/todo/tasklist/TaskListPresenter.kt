@@ -1,5 +1,12 @@
 package com.adammcneilly.todo.tasklist
 
+/**
+ * The presenter handles the business logic for displaying a list of tasks.
+ *
+ * Notice that dependency injection is used to supply a [view] and [model]. This helps enforce a
+ * separation of concerns between the components, but also allows for testability so that we can
+ * mock these parameters in unit tests.
+ */
 class TaskListPresenter(
         private val view: TaskListContract.View,
         private val model: TaskListContract.Model

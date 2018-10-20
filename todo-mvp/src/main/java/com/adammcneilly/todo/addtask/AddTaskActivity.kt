@@ -6,6 +6,10 @@ import android.os.Bundle
 import com.adammcneilly.todo_core.BaseAddTaskActivity
 import com.adammcneilly.todo_core.BaseTask
 
+/**
+ * This is the activity responsible for adding a task. It implements [AddTaskContract.View] so that
+ * it can perform all of the UI functions defined in [AddTaskContract].
+ */
 class AddTaskActivity : BaseAddTaskActivity(), AddTaskContract.View {
     private val presenter = AddTaskPresenter(this)
 

@@ -10,6 +10,10 @@ import com.adammcneilly.todo_core.BaseTask
 import com.adammcneilly.todo_core.BaseTaskAdapter
 import com.adammcneilly.todo_core.BaseTaskListActivity
 
+/**
+ * An implementation of our [TaskListContract.View] which is responsible for all UI functions related
+ * to displaying a list of tasks.
+ */
 class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
     private val taskAdapter = BaseTaskAdapter()
     private val presenter = TaskListPresenter(this, TaskRepository())
