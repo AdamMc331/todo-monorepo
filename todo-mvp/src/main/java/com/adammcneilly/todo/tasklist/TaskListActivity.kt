@@ -3,23 +3,19 @@ package com.adammcneilly.todo.tasklist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo_core.BaseTask
 import com.adammcneilly.todo_core.BaseTaskAdapter
-import kotlinx.android.synthetic.main.activity_task_list.*
+import com.adammcneilly.todo_core.BaseTaskListActivity
 
-class TaskListActivity : AppCompatActivity(), TaskListContract.View {
+class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
     private val taskAdapter = BaseTaskAdapter()
     private val presenter = TaskListPresenter(this, TaskRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_list)
-        setSupportActionBar(toolbar)
 
         initializeRecyclerView()
         presenter.getTasks()
@@ -40,8 +36,8 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
     }
 
     private fun initializeRecyclerView() {
-        task_list.adapter = taskAdapter
-        task_list.layoutManager = LinearLayoutManager(this)
+        taskList.adapter = taskAdapter
+        taskList.layoutManager = LinearLayoutManager(this)
     }
 
     override fun navigateToAddTask() {
