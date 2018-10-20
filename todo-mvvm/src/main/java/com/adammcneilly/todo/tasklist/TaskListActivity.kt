@@ -2,21 +2,19 @@ package com.adammcneilly.todo.tasklist
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo_core.BaseTask
 import com.adammcneilly.todo_core.BaseTaskAdapter
-import kotlinx.android.synthetic.main.activity_task_list.*
+import com.adammcneilly.todo_core.BaseTaskListActivity
 
-class TaskListActivity : AppCompatActivity() {
+class TaskListActivity : BaseTaskListActivity() {
     private val adapter = BaseTaskAdapter()
     private lateinit var viewModel: TaskListViewModel
 
@@ -32,8 +30,6 @@ class TaskListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_list)
-        setSupportActionBar(toolbar)
 
         setupViewModel()
         initializeRecyclerView()
@@ -61,8 +57,8 @@ class TaskListActivity : AppCompatActivity() {
     }
 
     private fun initializeRecyclerView() {
-        task_list.adapter = adapter
-        task_list.layoutManager = LinearLayoutManager(this)
+        taskList.adapter = adapter
+        taskList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initializeFAB() {
