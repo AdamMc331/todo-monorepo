@@ -23,7 +23,6 @@ class TaskListContract {
      * This also includes being notified when the view is created and destroyed.
      */
     interface Presenter {
-        fun getTasks()
         fun addButtonClicked()
         fun viewCreated()
         fun viewDestroyed()
