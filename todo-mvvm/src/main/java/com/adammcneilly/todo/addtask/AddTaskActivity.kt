@@ -8,6 +8,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.adammcneilly.todo_core.BaseAddTaskActivity
 import com.adammcneilly.todo_core.BaseTask
 
+/**
+ * The activity responsible for showing the UI for adding a task, and passing any events and
+ * relevant information to the [viewModel].
+ */
 class AddTaskActivity : BaseAddTaskActivity() {
     private lateinit var viewModel: AddTaskViewModel
 

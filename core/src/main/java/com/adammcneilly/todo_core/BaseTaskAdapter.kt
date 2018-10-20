@@ -7,6 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adammcneilly.todo_core.R
 
+/**
+ * A number of the modules will use the same type of adapter for displaying tasks, so we abstracted
+ * the base code into the core module to avoid repeating it.
+ */
 class BaseTaskAdapter : RecyclerView.Adapter<BaseTaskAdapter.BaseTaskViewHolder>() {
     var tasks: List<BaseTask> = emptyList()
         set(value) {
