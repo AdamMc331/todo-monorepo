@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">core</string>
+    <string name="task_description">Task Description</string>
+    <string name="submit_task">Submit Task</string>
 </resources>

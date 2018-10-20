@@ -2,20 +2,20 @@ package com.adammcneilly.todo.addtask
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.adammcneilly.todo.R
+import com.adammcneilly.todo_core.R
+import com.adammcneilly.todo_core.BaseAddTaskActivity
 import com.adammcneilly.todo_core.BaseTask
-import kotlinx.android.synthetic.main.activity_add_task.*
+import com.google.android.material.textfield.TextInputEditText
 
-class AddTaskActivity : AppCompatActivity() {
+class AddTaskActivity : BaseAddTaskActivity() {
     private lateinit var viewModel: AddTaskViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
 
         setupViewModel()
         setupSubmitButton()
@@ -29,18 +29,18 @@ class AddTaskActivity : AppCompatActivity() {
         })
 
         viewModel.descriptionError.observe(this, Observer {
-            task_description.error = it
+            findViewById<TextInputEditText>(R.id.task_description).error = it
         })
     }
 
     private fun setupSubmitButton() {
-        submit_task.setOnClickListener {
+        findViewById<Button>(R.id.submit_task).setOnClickListener {
             submitTask()
         }
     }
 
     private fun submitTask() {
-        val description = task_description.text.toString()
+        val description = findViewById<TextInputEditText>(R.id.task_description).text.toString()
         viewModel.submitTask(BaseTask(description))
     }
 
