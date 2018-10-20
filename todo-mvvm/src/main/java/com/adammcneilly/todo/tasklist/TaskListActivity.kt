@@ -14,6 +14,9 @@ import com.adammcneilly.todo_core.BaseTask
 import com.adammcneilly.todo_core.BaseTaskAdapter
 import com.adammcneilly.todo_core.BaseTaskListActivity
 
+/**
+ * This activity handles all of the UI functionality for displaying tasks. It gets those tasks from our [viewModel].
+ */
 class TaskListActivity : BaseTaskListActivity() {
     private val adapter = BaseTaskAdapter()
     private lateinit var viewModel: TaskListViewModel
