@@ -2,30 +2,27 @@ package com.adammcneilly.todo.addtask
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
-import kotlinx.android.synthetic.main.activity_add_task.*
+import com.adammcneilly.todo_core.BaseAddTaskActivity
+import com.adammcneilly.todo_core.BaseTask
 
-class AddTaskActivity : AppCompatActivity(), AddTaskContract.View {
+class AddTaskActivity : BaseAddTaskActivity(), AddTaskContract.View {
     private val presenter = AddTaskPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
 
-        submit_task.setOnClickListener {
+        submitTaskButton.setOnClickListener {
             presenter.submitButtonClicked()
         }
     }
 
-    override fun getTask(): Task {
-        val description = task_description.text.toString()
-        return Task(description)
+    override fun getTask(): BaseTask {
+        val description = taskDescriptionEditText.text.toString()
+        return BaseTask(description)
     }
 
-    override fun submitTask(task: Task) {
+    override fun submitTask(task: BaseTask) {
         val intent = Intent()
         intent.putExtra(DESCRIPTION_KEY, task.description)
         setResult(Activity.RESULT_OK, intent)
@@ -33,7 +30,7 @@ class AddTaskActivity : AppCompatActivity(), AddTaskContract.View {
     }
 
     override fun showInvalidDescriptionError() {
-        task_description.error = "Description must not be empty."
+        taskDescriptionEditText.error = "Description must not be empty."
     }
 
     companion object {

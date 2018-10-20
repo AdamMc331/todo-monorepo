@@ -2,7 +2,7 @@ package com.adammcneilly.todo.addtask
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -17,14 +17,14 @@ class AddTaskViewModelTest {
 
     @Test
     fun submitValidTask() {
-        val task = Task("Blah")
+        val task = BaseTask("Blah")
         viewModel.submitTask(task)
         assertEquals(task, getValidTask())
     }
 
     @Test
     fun submitInvalidTask() {
-        val task = Task("")
+        val task = BaseTask("")
         viewModel.submitTask(task)
         assertEquals("Description must not be empty.", getDescriptionError())
     }
@@ -36,8 +36,8 @@ class AddTaskViewModelTest {
         return observer.value!!
     }
 
-    private fun getValidTask(): Task {
-        val observer = LoggingObserver<Task>()
+    private fun getValidTask(): BaseTask {
+        val observer = LoggingObserver<BaseTask>()
         viewModel.validTask.observeForever(observer)
         assertNotNull(observer.value)
         return observer.value!!

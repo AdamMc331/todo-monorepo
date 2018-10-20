@@ -1,6 +1,6 @@
 package com.adammcneilly.todo.addtask
 
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 
 class AddTaskPresenter(private val view: AddTaskContract.View) : AddTaskContract.Presenter {
     override fun submitButtonClicked() {
@@ -13,7 +13,7 @@ class AddTaskPresenter(private val view: AddTaskContract.View) : AddTaskContract
         }
     }
 
-    override fun validateTask(task: Task): Boolean {
+    override fun validateTask(task: BaseTask): Boolean {
         return task.description.isNotEmpty()
     }
 }

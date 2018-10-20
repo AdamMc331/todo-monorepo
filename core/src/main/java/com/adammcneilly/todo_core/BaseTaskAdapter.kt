@@ -1,40 +1,38 @@
-package com.adammcneilly.todo.tasklist
+package com.adammcneilly.todo_core
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
+import androidx.recyclerview.widget.RecyclerView
+import com.adammcneilly.todo_core.R
 
-class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
-
-    var tasks: List<Task> = emptyList()
+class BaseTaskAdapter : RecyclerView.Adapter<BaseTaskAdapter.BaseTaskViewHolder>() {
+    var tasks: List<BaseTask> = emptyList()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseTaskViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.list_item_task, parent, false)
-        return TaskViewHolder(view)
+        return BaseTaskViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return tasks.size
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseTaskViewHolder, position: Int) {
         holder.bindTask(tasks[position])
     }
 
-    class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class BaseTaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val taskDescriptionTextView = view.findViewById<TextView>(R.id.task_description)
 
-        fun bindTask(task: Task) {
+        fun bindTask(task: BaseTask) {
             taskDescriptionTextView.text = task.description
         }
     }

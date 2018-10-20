@@ -1,15 +1,9 @@
 package com.adammcneilly.todo.tasklist
 
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.adammcneilly.todo.R
-import com.adammcneilly.todo.Task
 import com.adammcneilly.todo.addtask.AddTaskRobot
 import org.junit.Assert.assertEquals
 import org.junit.Rule

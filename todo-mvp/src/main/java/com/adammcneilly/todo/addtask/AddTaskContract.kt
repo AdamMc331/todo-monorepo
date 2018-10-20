@@ -1,16 +1,16 @@
 package com.adammcneilly.todo.addtask
 
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 
 class AddTaskContract {
     interface View {
-        fun getTask(): Task
-        fun submitTask(task: Task)
+        fun getTask(): BaseTask
+        fun submitTask(task: BaseTask)
         fun showInvalidDescriptionError()
     }
 
     interface Presenter {
         fun submitButtonClicked()
-        fun validateTask(task: Task): Boolean
+        fun validateTask(task: BaseTask): Boolean
     }
 }

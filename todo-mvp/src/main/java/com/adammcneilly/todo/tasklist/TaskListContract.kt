@@ -1,10 +1,10 @@
 package com.adammcneilly.todo.tasklist
 
-import com.adammcneilly.todo.Task
+import com.adammcneilly.todo_core.BaseTask
 
 class TaskListContract {
     interface View {
-        fun showTasks(tasks: List<Task>)
+        fun showTasks(tasks: List<BaseTask>)
         fun navigateToAddTask()
     }
 
@@ -14,6 +14,6 @@ class TaskListContract {
     }
 
     interface Model {
-        fun getTasks(): List<Task>
+        fun getTasks(): List<BaseTask>
     }
 }

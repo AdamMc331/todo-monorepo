@@ -1,5 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Todo MVP</string>
-    <string name="task_description">Task Description</string>
-    <string name="submit_task">Submit Task</string>
+    <string name="app_name">TODO MVP</string>
 </resources>
