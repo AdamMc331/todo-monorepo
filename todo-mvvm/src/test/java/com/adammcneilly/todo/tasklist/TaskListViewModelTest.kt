@@ -2,7 +2,7 @@ package com.adammcneilly.todo.tasklist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.adammcneilly.todo.data.Repository
+import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo_core.BaseTask
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
@@ -12,8 +12,7 @@ import org.junit.Test
 import org.mockito.Mockito.mock
 
 class TaskListViewModelTest {
-    @Suppress("UNCHECKED_CAST")
-    private val mockRepo = mock(Repository::class.java) as Repository<BaseTask>
+    private val mockRepo = mock(TaskRepository::class.java)
     private val viewModel = TaskListViewModel(mockRepo)
 
     @JvmField

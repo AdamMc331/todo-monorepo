@@ -6,9 +6,9 @@ import com.adammcneilly.todo_core.BaseTask
  * The data source for getting tasks. In a real application, we may consider a database or remote
  * server here, but for ease of demonstration we supply some dummy tasks.
  */
-class TaskRepository {
+open class TaskRepository {
 
-    fun getItems(): List<BaseTask> {
+    open fun getItems(): List<BaseTask> {
         return listOf(
                 BaseTask("Sample task 1"),
                 BaseTask("Sample task 2"),
