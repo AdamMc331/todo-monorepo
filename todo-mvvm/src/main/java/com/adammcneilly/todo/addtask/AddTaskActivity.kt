@@ -3,13 +3,10 @@ package com.adammcneilly.todo.addtask
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.adammcneilly.todo_core.R
 import com.adammcneilly.todo_core.BaseAddTaskActivity
 import com.adammcneilly.todo_core.BaseTask
-import com.google.android.material.textfield.TextInputEditText
 
 class AddTaskActivity : BaseAddTaskActivity() {
     private lateinit var viewModel: AddTaskViewModel
@@ -29,18 +26,18 @@ class AddTaskActivity : BaseAddTaskActivity() {
         })
 
         viewModel.descriptionError.observe(this, Observer {
-            findViewById<TextInputEditText>(R.id.task_description).error = it
+            taskDescriptionEditText.error = it
         })
     }
 
     private fun setupSubmitButton() {
-        findViewById<Button>(R.id.submit_task).setOnClickListener {
+        submitTaskButton.setOnClickListener {
             submitTask()
         }
     }
 
     private fun submitTask() {
-        val description = findViewById<TextInputEditText>(R.id.task_description).text.toString()
+        val description = taskDescriptionEditText.text.toString()
         viewModel.submitTask(BaseTask(description))
     }
 
