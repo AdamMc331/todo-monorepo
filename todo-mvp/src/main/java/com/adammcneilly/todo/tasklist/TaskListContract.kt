@@ -19,10 +19,14 @@ class TaskListContract {
     /**
      * The presenter is responsible for any business logic that does not belong in the UI. Here,
      * that means fetching the tasks, and handling click events that come from the view.
+     *
+     * This also includes being notified when the view is created and destroyed.
      */
     interface Presenter {
         fun getTasks()
         fun addButtonClicked()
+        fun viewCreated()
+        fun viewDestroyed()
     }
 
     /**

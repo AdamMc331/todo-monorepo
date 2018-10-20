@@ -22,8 +22,12 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
         super.onCreate(savedInstanceState)
 
         initializeRecyclerView()
-        presenter.getTasks()
+        initializeFAB()
 
+        presenter.viewCreated()
+    }
+
+    private fun initializeFAB() {
         fab.setOnClickListener {
             presenter.addButtonClicked()
         }

@@ -8,15 +8,23 @@ package com.adammcneilly.todo.tasklist
  * mock these parameters in unit tests.
  */
 class TaskListPresenter(
-        private val view: TaskListContract.View,
+        private var view: TaskListContract.View?,
         private val model: TaskListContract.Model
 ) : TaskListContract.Presenter {
 
     override fun addButtonClicked() {
-        view.navigateToAddTask()
+        view?.navigateToAddTask()
     }
 
     override fun getTasks() {
-        view.showTasks(model.getTasks())
+        view?.showTasks(model.getTasks())
+    }
+
+    override fun viewCreated() {
+        getTasks()
+    }
+
+    override fun viewDestroyed() {
+        view = null
     }
 }
