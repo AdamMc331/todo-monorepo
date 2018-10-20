@@ -14,7 +14,7 @@ class AddTaskPresenter(private val view: AddTaskContract.View) : AddTaskContract
         val task = view.getTask()
 
         if (validateTask(task)) {
-            view.submitTask(task)
+            view.returnWithTask(task)
         } else {
             view.showInvalidDescriptionError()
         }

@@ -57,6 +57,11 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
         taskAdapter.tasks = tasks
     }
 
+    override fun onDestroy() {
+        presenter.viewDestroyed()
+        super.onDestroy()
+    }
+
     companion object {
         private const val ADD_TASK_REQUEST = 0
     }

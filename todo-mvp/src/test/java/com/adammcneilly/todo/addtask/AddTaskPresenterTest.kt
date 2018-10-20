@@ -19,7 +19,7 @@ class AddTaskPresenterTest {
 
         whenever(mockView.getTask()).thenReturn(validTask)
         presenter.submitButtonClicked()
-        verify(mockView, Times(1)).submitTask(validTask)
+        verify(mockView, Times(1)).returnWithTask(validTask)
     }
 
     @Test
