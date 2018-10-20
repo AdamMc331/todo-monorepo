@@ -47,5 +47,7 @@ class AddTaskContract {
          * we can submit it or alert the user.
          */
         fun validateTask(task: BaseTask): Boolean
+
+        fun viewDestroyed()
     }
 }
