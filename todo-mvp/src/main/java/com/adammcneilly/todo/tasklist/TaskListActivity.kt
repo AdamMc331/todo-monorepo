@@ -13,6 +13,10 @@ import com.adammcneilly.todo_core.BaseTaskListActivity
 /**
  * An implementation of our [TaskListContract.View] which is responsible for all UI functions related
  * to displaying a list of tasks.
+ *
+ * NOTE: It's not perfect to have this view create the repository that is passed into the [presenter],
+ * but since the view is the one responsible for creating the presenter, it was the easiest option
+ * for now. If you use a DI framework such as dagger, you wouldn't need to worry about that.
  */
 class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
     private val taskAdapter = BaseTaskAdapter()
