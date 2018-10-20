@@ -26,7 +26,7 @@ class AddTaskActivity : BaseAddTaskActivity(), AddTaskContract.View {
         return BaseTask(description)
     }
 
-    override fun submitTask(task: BaseTask) {
+    override fun returnWithTask(task: BaseTask) {
         val intent = Intent()
         intent.putExtra(DESCRIPTION_KEY, task.description)
         setResult(Activity.RESULT_OK, intent)

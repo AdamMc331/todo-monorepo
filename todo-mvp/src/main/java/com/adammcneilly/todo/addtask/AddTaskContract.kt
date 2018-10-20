@@ -23,7 +23,7 @@ class AddTaskContract {
          * While this doesn't sound like a [View] related method, in this case we use Intents to
          * pass data between activities, which must happen inside a [View].
          */
-        fun submitTask(task: BaseTask)
+        fun returnWithTask(task: BaseTask)
 
         /**
          * If the user attempts to add a task with an invalid description, we need a way to display
@@ -47,5 +47,7 @@ class AddTaskContract {
          * we can submit it or alert the user.
          */
         fun validateTask(task: BaseTask): Boolean
+
+        fun viewDestroyed()
     }
 }

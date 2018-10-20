@@ -22,8 +22,12 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
         super.onCreate(savedInstanceState)
 
         initializeRecyclerView()
-        presenter.getTasks()
+        initializeFAB()
 
+        presenter.viewCreated()
+    }
+
+    private fun initializeFAB() {
         fab.setOnClickListener {
             presenter.addButtonClicked()
         }
@@ -32,6 +36,8 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        //TODO: This feels like a code smell that would belong in the presenter, but not sure
+        // how best to handle this.
         if (requestCode == ADD_TASK_REQUEST && resultCode == Activity.RESULT_OK) {
             val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
             val newTask = BaseTask(description)
@@ -51,6 +57,11 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
 
     override fun showTasks(tasks: List<BaseTask>) {
         taskAdapter.tasks = tasks
+    }
+
+    override fun onDestroy() {
+        presenter.viewDestroyed()
+        super.onDestroy()
     }
 
     companion object {
