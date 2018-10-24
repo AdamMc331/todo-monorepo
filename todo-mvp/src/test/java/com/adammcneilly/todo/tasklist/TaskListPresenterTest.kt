@@ -28,4 +28,12 @@ class TaskListPresenterTest {
         presenter.viewCreated()
         verify(mockView, Times(1)).showTasks(testList)
     }
+
+    @Test
+    fun returnedFromAddTask() {
+        val defaultTask = BaseTask("")
+
+        presenter.returnedFromAddTask(null)
+        verify(mockView, Times(1)).addTask(defaultTask)
+    }
 }

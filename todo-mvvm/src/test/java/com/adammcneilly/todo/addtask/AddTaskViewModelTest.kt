@@ -17,15 +17,18 @@ class AddTaskViewModelTest {
 
     @Test
     fun submitValidTask() {
-        val task = BaseTask("Blah")
-        viewModel.submitTask(task)
+        val testDescription = "Blah"
+        val task = BaseTask(testDescription)
+
+        viewModel.submitWithDescription(testDescription)
         assertEquals(task, getValidTask())
     }
 
     @Test
     fun submitInvalidTask() {
-        val task = BaseTask("")
-        viewModel.submitTask(task)
+        val testDescription = ""
+
+        viewModel.submitWithDescription(testDescription)
         assertEquals("Description must not be empty.", getDescriptionError())
     }
 

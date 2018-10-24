@@ -1,5 +1,9 @@
 package com.adammcneilly.todo.tasklist
 
+import android.content.Intent
+import com.adammcneilly.todo.addtask.AddTaskActivity
+import com.adammcneilly.todo_core.BaseTask
+
 /**
  * The presenter handles the business logic for displaying a list of tasks.
  *
@@ -28,4 +32,11 @@ class TaskListPresenter(
     override fun viewDestroyed() {
         view = null
     }
+
+    override fun returnedFromAddTask(data: Intent?) {
+        val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
+        val newTask = BaseTask(description)
+        view?.addTask(newTask)
+    }
+
 }

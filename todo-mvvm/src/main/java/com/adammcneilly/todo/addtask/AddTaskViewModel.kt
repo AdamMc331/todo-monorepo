@@ -20,7 +20,9 @@ class AddTaskViewModel : ViewModel() {
     val validTask = MutableLiveData<BaseTask>()
     val descriptionError = MutableLiveData<String>()
 
-    fun submitTask(task: BaseTask) {
+    fun submitWithDescription(description: String) {
+        val task = BaseTask(description)
+
         if (validateTask(task)) {
             validTask.value = task
         }
