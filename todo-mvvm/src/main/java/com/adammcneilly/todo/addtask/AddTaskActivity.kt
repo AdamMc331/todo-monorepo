@@ -36,13 +36,9 @@ class AddTaskActivity : BaseAddTaskActivity() {
 
     private fun setupSubmitButton() {
         submitTaskButton.setOnClickListener {
-            submitTask()
+            val description = taskDescriptionEditText.text.toString()
+            viewModel.submitWithDescription(description)
         }
-    }
-
-    private fun submitTask() {
-        val description = taskDescriptionEditText.text.toString()
-        viewModel.submitTask(BaseTask(description))
     }
 
     private fun returnTask(task: BaseTask) {

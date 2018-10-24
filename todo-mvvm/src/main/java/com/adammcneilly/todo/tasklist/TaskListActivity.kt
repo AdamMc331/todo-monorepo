@@ -8,9 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
-import com.adammcneilly.todo_core.BaseTask
 import com.adammcneilly.todo_core.BaseTaskAdapter
 import com.adammcneilly.todo_core.BaseTaskListActivity
 
@@ -45,9 +45,7 @@ class TaskListActivity : BaseTaskListActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == ADD_TASK_REQUEST && resultCode == Activity.RESULT_OK) {
-            val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
-            val newTask = BaseTask(description)
-            adapter.tasks += newTask
+            viewModel.returnedFromAddTask(data)
         }
     }
 
@@ -56,6 +54,19 @@ class TaskListActivity : BaseTaskListActivity() {
 
         viewModel.tasks.observe(this, Observer {
             it?.let(adapter::tasks::set)
+        })
+
+        viewModel.newTask.observe(this, Observer {
+            it?.let { task ->
+                adapter.tasks += task
+            }
+        })
+
+        viewModel.navigationAction.observe(this, Observer {
+            @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+            when (it) {
+                NavigationAction.ADD_TASK -> navigateToAddTask()
+            }
         })
     }
 
@@ -66,7 +77,7 @@ class TaskListActivity : BaseTaskListActivity() {
 
     private fun initializeFAB() {
         fab.setOnClickListener {
-            navigateToAddTask()
+            viewModel.addButtonClicked()
         }
     }
 

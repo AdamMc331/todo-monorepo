@@ -2,6 +2,7 @@ package com.adammcneilly.todo.tasklist
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo_core.BaseTask
 import com.nhaarman.mockitokotlin2.whenever
@@ -30,9 +31,38 @@ class TaskListViewModelTest {
         assertEquals(sampleTasks, getTasksFromViewModel())
     }
 
+    @Test
+    fun returnFromAddTask() {
+        val emptyTask = BaseTask("")
+        viewModel.returnedFromAddTask(null)
+
+        assertEquals(emptyTask, getNewTaskFromViewModel())
+    }
+
+    @Test
+    fun addButtonClicked() {
+        viewModel.addButtonClicked()
+
+        assertEquals(NavigationAction.ADD_TASK, getNavigationActionFromViewModel())
+    }
+
     private fun getTasksFromViewModel(): List<BaseTask> {
         val observer = LoggingObserver<List<BaseTask>>()
         viewModel.tasks.observeForever(observer)
+        assertNotNull(observer.value)
+        return observer.value!!
+    }
+
+    private fun getNewTaskFromViewModel(): BaseTask {
+        val observer = LoggingObserver<BaseTask>()
+        viewModel.newTask.observeForever(observer)
+        assertNotNull(observer.value)
+        return observer.value!!
+    }
+
+    private fun getNavigationActionFromViewModel(): NavigationAction {
+        val observer = LoggingObserver<NavigationAction>()
+        viewModel.navigationAction.observeForever(observer)
         assertNotNull(observer.value)
         return observer.value!!
     }
