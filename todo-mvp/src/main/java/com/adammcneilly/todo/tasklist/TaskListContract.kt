@@ -1,5 +1,6 @@
 package com.adammcneilly.todo.tasklist
 
+import android.content.Intent
 import com.adammcneilly.todo_core.BaseTask
 
 /**
@@ -14,6 +15,7 @@ class TaskListContract {
     interface View {
         fun showTasks(tasks: List<BaseTask>)
         fun navigateToAddTask()
+        fun addTask(task: BaseTask)
     }
 
     /**
@@ -26,6 +28,7 @@ class TaskListContract {
         fun addButtonClicked()
         fun viewCreated()
         fun viewDestroyed()
+        fun returnedFromAddTask(data: Intent?)
     }
 
     /**
