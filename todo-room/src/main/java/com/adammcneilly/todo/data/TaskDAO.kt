@@ -12,4 +12,7 @@ interface TaskDAO {
 
     @Insert
     fun insert(task: Task): Long
+
+    @Query("DELETE FROM task")
+    fun deleteAll()
 }
