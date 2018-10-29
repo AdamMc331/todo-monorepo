@@ -9,7 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.R
+import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskDatabase
 import com.adammcneilly.todo.data.TaskRepository
 import kotlinx.android.synthetic.main.activity_task_list.*
@@ -55,12 +57,12 @@ class TaskListActivity : AppCompatActivity() {
             it?.let(adapter::tasks::set)
         })
 
-//        viewModel.navigationAction.observe(this, Observer {
-//            @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-//            when (it) {
-//                NavigationAction.ADD_TASK -> navigateToAddTask()
-//            }
-//        })
+        viewModel.navigationAction.observe(this, Observer {
+            @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+            when (it) {
+                NavigationAction.ADD_TASK -> navigateToAddTask()
+            }
+        })
     }
 
     private fun initializeRecyclerView() {
@@ -70,14 +72,14 @@ class TaskListActivity : AppCompatActivity() {
 
     private fun initializeFAB() {
         fab.setOnClickListener {
-            // viewModel.addButtonClicked()
+            viewModel.addButtonClicked()
         }
     }
 
-//    private fun navigateToAddTask() {
-//        val intent = Intent(this, AddTaskActivity::class.java)
-//        startActivityForResult(intent, ADD_TASK_REQUEST)
-//    }
+    private fun navigateToAddTask() {
+        val intent = Intent(this, AddTaskActivity::class.java)
+        startActivityForResult(intent, ADD_TASK_REQUEST)
+    }
 
     companion object {
         private const val ADD_TASK_REQUEST = 0

@@ -6,5 +6,6 @@ package com.adammcneilly.todo
  * between a view and viewmodel.
  */
 enum class NavigationAction {
-    ADD_TASK
+    ADD_TASK,
+    FINISH
 }
