@@ -1,1 +1,1 @@
-include ':todo-mvp', ':todo-mvvm', ':core'
+include ':todo-mvp', ':todo-mvvm'
