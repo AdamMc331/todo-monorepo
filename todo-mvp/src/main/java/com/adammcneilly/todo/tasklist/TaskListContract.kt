@@ -2,7 +2,6 @@ package com.adammcneilly.todo.tasklist
 
 import android.content.Intent
 import com.adammcneilly.todo.data.Task
-import com.adammcneilly.todo.tasklist.TaskListContract.*
 
 /**
  * In MVP, a contract class can define the required behavior of the [Model], [View], and [Presenter].
