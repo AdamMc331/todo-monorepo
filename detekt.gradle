@@ -1,0 +1,8 @@
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+detekt {
+    toolVersion = "1.0.0-RC14"
+    input = files("$projectDir")
+    config = files("$rootDir/detekt-rules.yml")
+    filters = ".*/resources/.*,.*/build/.*"
+}
