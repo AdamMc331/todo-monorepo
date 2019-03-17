@@ -33,10 +33,7 @@ class AddTaskViewModelTest {
     }
 
     private fun getDescriptionError(): String {
-        val observer = LoggingObserver<String>()
-        viewModel.descriptionError.observeForever(observer)
-        assertNotNull(observer.value)
-        return observer.value!!
+        return viewModel.getDescriptionError()
     }
 
     private fun getValidTask(): Task {
