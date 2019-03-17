@@ -1,8 +1,9 @@
 package com.adammcneilly.todo.addtask
 
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.adammcneilly.todo.data.Task
+import com.google.android.material.textfield.TextInputEditText
 
 /**
  * This ViewModel is responsible for the business logic around adding a task, such as validating it
@@ -16,9 +17,11 @@ import com.adammcneilly.todo.data.Task
  * is why events such as the [validTask] or [descriptionError] are emitted like events. If we were
  * using RxJava, we may consider publish subjects here instead of live data.
  */
-class AddTaskViewModel : ViewModel() {
+class AddTaskViewModel : ObservableViewModel() {
     val validTask = MutableLiveData<Task>()
-    val descriptionError = MutableLiveData<String>()
+    private val descriptionError = MutableLiveData<String>()
+
+    fun getDescriptionError(): String = descriptionError.value.orEmpty()
 
     fun submitWithDescription(description: String) {
         val task = Task(description)
@@ -31,9 +34,19 @@ class AddTaskViewModel : ViewModel() {
     private fun validateTask(task: Task): Boolean {
         return if (task.description.isEmpty()) {
             descriptionError.value = "Description must not be empty."
+            notifyChange()
             false
         } else {
+            descriptionError.value = null
+            notifyChange()
             true
         }
+    }
+}
+
+@BindingAdapter("errorText")
+fun TextInputEditText.errorText(error: String?) {
+    if (!error.isNullOrEmpty()) {
+        this.error = error
     }
 }

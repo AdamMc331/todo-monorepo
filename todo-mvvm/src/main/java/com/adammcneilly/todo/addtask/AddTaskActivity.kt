@@ -3,33 +3,24 @@ package com.adammcneilly.todo.addtask
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.adammcneilly.todo.R
 import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.databinding.ActivityAddTaskBinding
 
 /**
  * The activity responsible for showing the UI for adding a task, and passing any events and
  * relevant information to the [viewModel].
- *
- * TODO: Determine if there's anyt way databinidng is relevant here.
  */
 class AddTaskActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAddTaskBinding
     private lateinit var viewModel: AddTaskViewModel
-    private var submitTaskButton: Button? = null
-    private var taskDescriptionEditText: EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityAddTaskBinding.inflate(layoutInflater)
+        binding = ActivityAddTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        submitTaskButton = findViewById(R.id.submit_task)
-        taskDescriptionEditText = findViewById(R.id.task_description)
 
         setupViewModel()
         setupSubmitButton()
@@ -37,19 +28,16 @@ class AddTaskActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProviders.of(this).get(AddTaskViewModel::class.java)
+        binding.viewModel = viewModel
 
         viewModel.validTask.observe(this, Observer {
             it?.let(this::returnTask)
         })
-
-        viewModel.descriptionError.observe(this, Observer {
-            taskDescriptionEditText?.error = it
-        })
     }
 
     private fun setupSubmitButton() {
-        submitTaskButton?.setOnClickListener {
-            val description = taskDescriptionEditText?.text.toString()
+        binding.submitTask.setOnClickListener {
+            val description = binding.taskDescription.text.toString()
             viewModel.submitWithDescription(description)
         }
     }
