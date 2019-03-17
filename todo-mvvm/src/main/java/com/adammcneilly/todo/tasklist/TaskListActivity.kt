@@ -3,23 +3,27 @@ package com.adammcneilly.todo.tasklist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.adammcneilly.todo.NavigationAction
+import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
-import com.adammcneilly.todo_core.BaseTaskAdapter
-import com.adammcneilly.todo_core.BaseTaskListActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  * This activity handles all of the UI functionality for displaying tasks. It gets those tasks from our [viewModel].
  */
-class TaskListActivity : BaseTaskListActivity() {
-    private val adapter = BaseTaskAdapter()
+class TaskListActivity : AppCompatActivity() {
+    private val adapter = TaskAdapter()
     private lateinit var viewModel: TaskListViewModel
+    private var fab: FloatingActionButton? = null
+    private var taskList: RecyclerView? = null
 
     private val viewModelFactory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -33,6 +37,10 @@ class TaskListActivity : BaseTaskListActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_task_list)
+
+        fab = findViewById(R.id.fab)
+        taskList = findViewById(R.id.task_list)
 
         setupViewModel()
         initializeRecyclerView()
@@ -71,12 +79,12 @@ class TaskListActivity : BaseTaskListActivity() {
     }
 
     private fun initializeRecyclerView() {
-        taskList.adapter = adapter
-        taskList.layoutManager = LinearLayoutManager(this)
+        taskList?.adapter = adapter
+        taskList?.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initializeFAB() {
-        fab.setOnClickListener {
+        fab?.setOnClickListener {
             viewModel.addButtonClicked()
         }
     }

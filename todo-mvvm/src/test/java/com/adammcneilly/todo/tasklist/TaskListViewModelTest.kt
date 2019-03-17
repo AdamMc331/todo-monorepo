@@ -3,8 +3,8 @@ package com.adammcneilly.todo.tasklist
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.adammcneilly.todo.NavigationAction
+import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
-import com.adammcneilly.todo_core.BaseTask
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -23,7 +23,7 @@ class TaskListViewModelTest {
     @Test
     fun getTasks() {
         val sampleTasks = listOf(
-                BaseTask("Task One")
+                Task("Task One")
         )
 
         whenever(mockRepo.getItems()).thenReturn(sampleTasks)
@@ -33,7 +33,7 @@ class TaskListViewModelTest {
 
     @Test
     fun returnFromAddTask() {
-        val emptyTask = BaseTask("")
+        val emptyTask = Task("")
         viewModel.returnedFromAddTask(null)
 
         assertEquals(emptyTask, getNewTaskFromViewModel())
@@ -46,15 +46,15 @@ class TaskListViewModelTest {
         assertEquals(NavigationAction.ADD_TASK, getNavigationActionFromViewModel())
     }
 
-    private fun getTasksFromViewModel(): List<BaseTask> {
-        val observer = LoggingObserver<List<BaseTask>>()
+    private fun getTasksFromViewModel(): List<Task> {
+        val observer = LoggingObserver<List<Task>>()
         viewModel.tasks.observeForever(observer)
         assertNotNull(observer.value)
         return observer.value!!
     }
 
-    private fun getNewTaskFromViewModel(): BaseTask {
-        val observer = LoggingObserver<BaseTask>()
+    private fun getNewTaskFromViewModel(): Task {
+        val observer = LoggingObserver<Task>()
         viewModel.newTask.observeForever(observer)
         assertNotNull(observer.value)
         return observer.value!!
