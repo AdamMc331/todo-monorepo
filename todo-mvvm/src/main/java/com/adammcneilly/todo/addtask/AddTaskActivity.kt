@@ -10,10 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.adammcneilly.todo.R
 import com.adammcneilly.todo.data.Task
+import com.adammcneilly.todo.databinding.ActivityAddTaskBinding
 
 /**
  * The activity responsible for showing the UI for adding a task, and passing any events and
  * relevant information to the [viewModel].
+ *
+ * TODO: Determine if there's anyt way databinidng is relevant here.
  */
 class AddTaskActivity : AppCompatActivity() {
     private lateinit var viewModel: AddTaskViewModel
@@ -22,7 +25,8 @@ class AddTaskActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_task)
+        val binding = ActivityAddTaskBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         submitTaskButton = findViewById(R.id.submit_task)
         taskDescriptionEditText = findViewById(R.id.task_description)

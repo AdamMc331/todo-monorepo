@@ -9,21 +9,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.adammcneilly.todo.NavigationAction
-import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.TaskRepository
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.adammcneilly.todo.databinding.ActivityTaskListBinding
 
 /**
  * This activity handles all of the UI functionality for displaying tasks. It gets those tasks from our [viewModel].
  */
 class TaskListActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityTaskListBinding
     private val adapter = TaskAdapter()
     private lateinit var viewModel: TaskListViewModel
-    private var fab: FloatingActionButton? = null
-    private var taskList: RecyclerView? = null
 
     private val viewModelFactory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -37,14 +34,12 @@ class TaskListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task_list)
-
-        fab = findViewById(R.id.fab)
-        taskList = findViewById(R.id.task_list)
+        binding = ActivityTaskListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         setupViewModel()
         initializeRecyclerView()
-        initializeFAB()
 
         viewModel.getTasks()
     }
@@ -59,6 +54,7 @@ class TaskListActivity : AppCompatActivity() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskListViewModel::class.java)
+        binding.viewModel = viewModel
 
         viewModel.tasks.observe(this, Observer {
             it?.let(adapter::tasks::set)
@@ -79,14 +75,8 @@ class TaskListActivity : AppCompatActivity() {
     }
 
     private fun initializeRecyclerView() {
-        taskList?.adapter = adapter
-        taskList?.layoutManager = LinearLayoutManager(this)
-    }
-
-    private fun initializeFAB() {
-        fab?.setOnClickListener {
-            viewModel.addButtonClicked()
-        }
+        binding.taskList.adapter = adapter
+        binding.taskList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun navigateToAddTask() {
