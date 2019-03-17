@@ -1,12 +1,11 @@
 package com.adammcneilly.todo.tasklist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.adammcneilly.todo.R
 import com.adammcneilly.todo.data.Task
+import com.adammcneilly.todo.data.TaskViewModel
+import com.adammcneilly.todo.databinding.ListItemTaskBinding
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     var tasks: List<Task> = emptyList()
@@ -18,8 +17,8 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val view = inflater.inflate(R.layout.list_item_task, parent, false)
-        return TaskViewHolder(view)
+        val binding = ListItemTaskBinding.inflate(inflater, parent, false)
+        return TaskViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -30,11 +29,16 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
         holder.bindTask(tasks[position])
     }
 
-    class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val taskDescriptionTextView = view.findViewById<TextView>(R.id.task_description)
+    class TaskViewHolder(private val binding: ListItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val viewModel = TaskViewModel()
+
+        init {
+            binding.viewModel = viewModel
+        }
 
         fun bindTask(task: Task) {
-            taskDescriptionTextView.text = task.description
+            viewModel.task = task
+            binding.executePendingBindings()
         }
     }
 }
