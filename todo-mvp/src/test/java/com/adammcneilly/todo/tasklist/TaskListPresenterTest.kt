@@ -1,6 +1,6 @@
 package com.adammcneilly.todo.tasklist
 
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.data.Task
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Test
 import org.mockito.Mockito.mock
@@ -21,7 +21,7 @@ class TaskListPresenterTest {
 
     @Test
     fun viewCreated() {
-        val testList = listOf(BaseTask("Test"))
+        val testList = listOf(Task("Test"))
 
         whenever(mockModel.getTasks()).thenReturn(testList)
 
@@ -31,7 +31,7 @@ class TaskListPresenterTest {
 
     @Test
     fun returnedFromAddTask() {
-        val defaultTask = BaseTask("")
+        val defaultTask = Task("")
 
         presenter.returnedFromAddTask(null)
         verify(mockView, Times(1)).addTask(defaultTask)

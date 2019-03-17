@@ -3,12 +3,14 @@ package com.adammcneilly.todo.tasklist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
+import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
-import com.adammcneilly.todo_core.BaseTask
-import com.adammcneilly.todo_core.BaseTaskAdapter
-import com.adammcneilly.todo_core.BaseTaskListActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  * An implementation of our [TaskListContract.View] which is responsible for all UI functions related
@@ -18,12 +20,19 @@ import com.adammcneilly.todo_core.BaseTaskListActivity
  * but since the view is the one responsible for creating the presenter, it was the easiest option
  * for now. If you use a DI framework such as dagger, you wouldn't need to worry about that.
  */
-class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
-    private val taskAdapter = BaseTaskAdapter()
+class TaskListActivity : AppCompatActivity(), TaskListContract.View {
+    private val taskAdapter = TaskAdapter()
     private val presenter = TaskListPresenter(this, TaskRepository())
+    private var fab: FloatingActionButton? = null
+    private var taskList: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_task_list)
+
+        fab = findViewById(R.id.fab)
+        taskList = findViewById(R.id.task_list)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         initializeRecyclerView()
         initializeFAB()
@@ -32,7 +41,7 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
     }
 
     private fun initializeFAB() {
-        fab.setOnClickListener {
+        fab?.setOnClickListener {
             presenter.addButtonClicked()
         }
     }
@@ -46,8 +55,8 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
     }
 
     private fun initializeRecyclerView() {
-        taskList.adapter = taskAdapter
-        taskList.layoutManager = LinearLayoutManager(this)
+        taskList?.adapter = taskAdapter
+        taskList?.layoutManager = LinearLayoutManager(this)
     }
 
     override fun navigateToAddTask() {
@@ -55,7 +64,7 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
         startActivityForResult(intent, ADD_TASK_REQUEST)
     }
 
-    override fun showTasks(tasks: List<BaseTask>) {
+    override fun showTasks(tasks: List<Task>) {
         taskAdapter.tasks = tasks
     }
 
@@ -64,7 +73,7 @@ class TaskListActivity : BaseTaskListActivity(), TaskListContract.View {
         super.onDestroy()
     }
 
-    override fun addTask(task: BaseTask) {
+    override fun addTask(task: Task) {
         taskAdapter.tasks += task
     }
 
