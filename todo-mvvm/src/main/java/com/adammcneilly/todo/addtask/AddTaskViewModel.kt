@@ -2,7 +2,7 @@ package com.adammcneilly.todo.addtask
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.data.Task
 
 /**
  * This ViewModel is responsible for the business logic around adding a task, such as validating it
@@ -17,18 +17,18 @@ import com.adammcneilly.todo_core.BaseTask
  * using RxJava, we may consider publish subjects here instead of live data.
  */
 class AddTaskViewModel : ViewModel() {
-    val validTask = MutableLiveData<BaseTask>()
+    val validTask = MutableLiveData<Task>()
     val descriptionError = MutableLiveData<String>()
 
     fun submitWithDescription(description: String) {
-        val task = BaseTask(description)
+        val task = Task(description)
 
         if (validateTask(task)) {
             validTask.value = task
         }
     }
 
-    private fun validateTask(task: BaseTask): Boolean {
+    private fun validateTask(task: Task): Boolean {
         return if (task.description.isEmpty()) {
             descriptionError.value = "Description must not be empty."
             false

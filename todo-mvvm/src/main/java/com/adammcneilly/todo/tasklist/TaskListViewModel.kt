@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.addtask.AddTaskActivity
+import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
-import com.adammcneilly.todo_core.BaseTask
 
 /**
  * This class is responsible for any business logic around displaying a list of tasks. The repository
@@ -19,8 +19,8 @@ import com.adammcneilly.todo_core.BaseTask
  * @property[newTask] This LiveData is updated any time a new task is added.
  */
 class TaskListViewModel(private val repository: TaskRepository) : ViewModel() {
-    val tasks = MutableLiveData<List<BaseTask>>()
-    val newTask = MutableLiveData<BaseTask>()
+    val tasks = MutableLiveData<List<Task>>()
+    val newTask = MutableLiveData<Task>()
     val navigationAction = MutableLiveData<NavigationAction>()
 
     fun getTasks() {
@@ -31,7 +31,7 @@ class TaskListViewModel(private val repository: TaskRepository) : ViewModel() {
 
     fun returnedFromAddTask(data: Intent?) {
         val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
-        val taskFromIntent = BaseTask(description)
+        val taskFromIntent = Task(description)
         newTask.value = taskFromIntent
     }
 
