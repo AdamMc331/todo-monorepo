@@ -1,6 +1,6 @@
 package com.adammcneilly.todo.addtask
 
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.data.Task
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -15,7 +15,7 @@ class AddTaskPresenterTest {
 
     @Test
     fun submitButtonClickedForValidTask() {
-        val validTask = BaseTask("Valid")
+        val validTask = Task("Valid")
 
         whenever(mockView.getTask()).thenReturn(validTask)
         presenter.submitButtonClicked()
@@ -24,7 +24,7 @@ class AddTaskPresenterTest {
 
     @Test
     fun submitButtonClickedForInvalidTask() {
-        val invalidTask = BaseTask("")
+        val invalidTask = Task("")
 
         whenever(mockView.getTask()).thenReturn(invalidTask)
         presenter.submitButtonClicked()
@@ -33,8 +33,8 @@ class AddTaskPresenterTest {
 
     @Test
     fun validateTask() {
-        val taskWithDescription = BaseTask("valid")
-        val taskWithoutDescription = BaseTask("")
+        val taskWithDescription = Task("valid")
+        val taskWithoutDescription = Task("")
 
         assertTrue(presenter.validateTask(taskWithDescription))
         assertFalse(presenter.validateTask(taskWithoutDescription))

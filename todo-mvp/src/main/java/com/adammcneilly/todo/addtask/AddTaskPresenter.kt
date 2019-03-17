@@ -1,6 +1,6 @@
 package com.adammcneilly.todo.addtask
 
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.data.Task
 
 /**
  * This is an implementation of an [AddTaskContract.Presenter] which handles the business logic
@@ -20,7 +20,7 @@ class AddTaskPresenter(private var view: AddTaskContract.View?) : AddTaskContrac
         }
     }
 
-    override fun validateTask(task: BaseTask): Boolean {
+    override fun validateTask(task: Task): Boolean {
         return task.description.isNotEmpty()
     }
 

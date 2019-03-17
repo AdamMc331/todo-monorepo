@@ -1,6 +1,8 @@
 package com.adammcneilly.todo.addtask
 
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.addtask.AddTaskContract.Presenter
+import com.adammcneilly.todo.addtask.AddTaskContract.View
+import com.adammcneilly.todo.data.Task
 
 /**
  * In MVP, a contract class can define the required behavior of both a [View] and a [Presenter].
@@ -15,15 +17,15 @@ class AddTaskContract {
      */
     interface View {
         /**
-         * Retrieves the current [BaseTask] from the UI components that build the task.
+         * Retrieves the current [Task] from the UI components that build the task.
          */
-        fun getTask(): BaseTask
+        fun getTask(): Task
 
         /**
          * While this doesn't sound like a [View] related method, in this case we use Intents to
          * pass data between activities, which must happen inside a [View].
          */
-        fun returnWithTask(task: BaseTask)
+        fun returnWithTask(task: Task)
 
         /**
          * If the user attempts to add a task with an invalid description, we need a way to display
@@ -46,7 +48,7 @@ class AddTaskContract {
          * The presenter is responsible for determining if a given [task] is valid, and whether
          * we can submit it or alert the user.
          */
-        fun validateTask(task: BaseTask): Boolean
+        fun validateTask(task: Task): Boolean
 
         fun viewDestroyed()
     }

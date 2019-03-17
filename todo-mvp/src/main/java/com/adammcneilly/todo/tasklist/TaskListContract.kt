@@ -1,7 +1,8 @@
 package com.adammcneilly.todo.tasklist
 
 import android.content.Intent
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.data.Task
+import com.adammcneilly.todo.tasklist.TaskListContract.*
 
 /**
  * In MVP, a contract class can define the required behavior of the [Model], [View], and [Presenter].
@@ -13,9 +14,9 @@ class TaskListContract {
      * displaying a list, and navigating to a new view.
      */
     interface View {
-        fun showTasks(tasks: List<BaseTask>)
+        fun showTasks(tasks: List<Task>)
         fun navigateToAddTask()
-        fun addTask(task: BaseTask)
+        fun addTask(task: Task)
     }
 
     /**
@@ -37,6 +38,6 @@ class TaskListContract {
      * is not directly tied to the presenter.
      */
     interface Model {
-        fun getTasks(): List<BaseTask>
+        fun getTasks(): List<Task>
     }
 }
