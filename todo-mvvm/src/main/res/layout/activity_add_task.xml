@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.adammcneilly.todo.addtask.AddTaskViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/add_task_layout"
@@ -20,7 +27,8 @@
                 android:id="@+id/task_description"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/task_description" />
+                android:hint="@string/task_description"
+                app:errorText="@{viewModel.descriptionError}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
