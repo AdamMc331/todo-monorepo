@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.addtask.AddTaskActivity
+import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo.databinding.ActivityTaskListBinding
 
@@ -56,15 +57,9 @@ class TaskListActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskListViewModel::class.java)
         binding.viewModel = viewModel
 
-        viewModel.tasks.observe(this, Observer {
-            it?.let(adapter::tasks::set)
-        })
+        viewModel.tasks.observe(this, Observer(this::replaceTasksInAdapter))
 
-        viewModel.newTask.observe(this, Observer {
-            it?.let { task ->
-                adapter.tasks += task
-            }
-        })
+        viewModel.newTask.observe(this, Observer(this::addTaskToAdapter))
 
         viewModel.navigationAction.observe(this, Observer {
             @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
@@ -72,6 +67,16 @@ class TaskListActivity : AppCompatActivity() {
                 NavigationAction.ADD_TASK -> navigateToAddTask()
             }
         })
+    }
+
+    private fun replaceTasksInAdapter(tasks: List<Task>?) {
+        val newTasks = tasks ?: return
+        adapter.tasks = newTasks
+    }
+
+    private fun addTaskToAdapter(task: Task?) {
+        val newTask = task ?: return
+        adapter.tasks += newTask
     }
 
     private fun initializeRecyclerView() {
