@@ -30,6 +30,11 @@ class AddTaskActivity : AppCompatActivity(), AddTaskContract.View {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.viewDestroyed()
+    }
+
     override fun getTask(): Task {
         val description = taskDescriptionEditText?.text.toString()
         return Task(description)

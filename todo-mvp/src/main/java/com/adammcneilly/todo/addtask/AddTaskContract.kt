@@ -50,6 +50,9 @@ class AddTaskContract {
          */
         fun validateTask(task: Task): Boolean
 
+        /**
+         * The presenter should perform some cleanup when the view is destroyed to prevent any leaks.
+         */
         fun viewDestroyed()
     }
 }
