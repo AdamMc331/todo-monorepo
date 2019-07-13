@@ -29,7 +29,7 @@ allprojects {
         minSdkVersion = 21
         targetSdkVersion = 28
         buildToolsVersion = '28.0.3'
-        appCompatVersion = '1.0.2'
+        appCompatVersion = '1.1.0-rc01'
         materialVersion = '1.0.0'
         lifecycleVersion = '2.0.0'
         archTestingVersion = '2.0.1'
