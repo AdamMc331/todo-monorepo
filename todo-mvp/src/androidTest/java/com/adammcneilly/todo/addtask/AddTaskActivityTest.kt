@@ -1,7 +1,7 @@
 package com.adammcneilly.todo.addtask
 
 import androidx.test.rule.ActivityTestRule
-import com.adammcneilly.todo_core.BaseTask
+import com.adammcneilly.todo.data.Task
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -20,7 +20,7 @@ class AddTaskActivityTest {
         AddTaskRobot()
                 .description(testDescription)
 
-        val expectedTask = BaseTask(testDescription)
+        val expectedTask = Task(testDescription)
         assertEquals(expectedTask, rule.activity?.getTask())
     }
 
