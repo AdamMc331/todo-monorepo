@@ -30,9 +30,7 @@ class AddTaskActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(AddTaskViewModel::class.java)
         binding.viewModel = viewModel
 
-        viewModel.validTask.observe(this, Observer {
-            it?.let(this::returnTask)
-        })
+        viewModel.validTask.observe(this, Observer(this::returnTask))
     }
 
     private fun setupSubmitButton() {
@@ -42,9 +40,11 @@ class AddTaskActivity : AppCompatActivity() {
         }
     }
 
-    private fun returnTask(task: Task) {
+    private fun returnTask(task: Task?) {
+        val newTask = task ?: return
+
         val intent = Intent()
-        intent.putExtra(DESCRIPTION_KEY, task.description)
+        intent.putExtra(DESCRIPTION_KEY, newTask.description)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
