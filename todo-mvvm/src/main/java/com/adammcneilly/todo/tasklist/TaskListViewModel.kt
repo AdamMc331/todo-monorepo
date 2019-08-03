@@ -23,7 +23,11 @@ class TaskListViewModel(private val repository: TaskRepository) : ViewModel() {
     val newTask = MutableLiveData<Task>()
     val navigationAction = MutableLiveData<NavigationAction>()
 
-    fun getTasks() {
+    init {
+        getTasks()
+    }
+
+    private fun getTasks() {
         if (tasks.value == null) {
             tasks.value = repository.getItems()
         }

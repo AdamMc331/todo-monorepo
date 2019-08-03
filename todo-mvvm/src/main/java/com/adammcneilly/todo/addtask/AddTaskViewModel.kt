@@ -1,7 +1,9 @@
 package com.adammcneilly.todo.addtask
 
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.adammcneilly.todo.R
 import com.adammcneilly.todo.data.Task
 import com.google.android.material.textfield.TextInputEditText
 
@@ -19,9 +21,9 @@ import com.google.android.material.textfield.TextInputEditText
  */
 class AddTaskViewModel : ObservableViewModel() {
     val validTask = MutableLiveData<Task>()
-    private val descriptionError = MutableLiveData<String>()
+    private val descriptionError = MutableLiveData<Int>()
 
-    fun getDescriptionError(): String = descriptionError.value.orEmpty()
+    fun getDescriptionError(): LiveData<Int> = descriptionError
 
     fun submitWithDescription(description: String) {
         val task = Task(description)
@@ -32,21 +34,18 @@ class AddTaskViewModel : ObservableViewModel() {
     }
 
     private fun validateTask(task: Task): Boolean {
-        return if (task.description.isEmpty()) {
-            descriptionError.value = "Description must not be empty."
-            notifyChange()
-            false
-        } else {
-            descriptionError.value = null
-            notifyChange()
-            true
-        }
+        val emptyDescription = task.description.isEmpty()
+        val errorRes = if (emptyDescription) R.string.description_must_not_be_empty else null
+        descriptionError.value = errorRes
+        notifyChange()
+
+        return !emptyDescription
     }
 }
 
-@BindingAdapter("errorText")
-fun TextInputEditText.errorText(error: String?) {
-    if (!error.isNullOrEmpty()) {
-        this.error = error
-    }
+@BindingAdapter("errorTextRes")
+fun TextInputEditText.errorTextRes(errorTextRes: Int?) {
+    val textRes = errorTextRes ?: return
+    
+    this.error = this.context.getString(textRes)
 }

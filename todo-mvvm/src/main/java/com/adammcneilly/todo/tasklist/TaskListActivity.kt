@@ -20,8 +20,8 @@ import com.adammcneilly.todo.databinding.ActivityTaskListBinding
  */
 class TaskListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTaskListBinding
-    private val adapter = TaskAdapter()
     private lateinit var viewModel: TaskListViewModel
+    private val adapter = TaskAdapter()
 
     private val viewModelFactory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -39,10 +39,8 @@ class TaskListActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        setupViewModel()
         initializeRecyclerView()
-
-        viewModel.getTasks()
+        setupViewModel()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -61,12 +59,14 @@ class TaskListActivity : AppCompatActivity() {
 
         viewModel.newTask.observe(this, Observer(this::addTaskToAdapter))
 
-        viewModel.navigationAction.observe(this, Observer {
-            @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-            when (it) {
-                NavigationAction.ADD_TASK -> navigateToAddTask()
-            }
-        })
+        viewModel.navigationAction.observe(this, Observer(this::handleNavigationAction))
+    }
+
+    private fun handleNavigationAction(action: NavigationAction?) {
+        @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+        when (action) {
+            NavigationAction.ADD_TASK -> navigateToAddTask()
+        }
     }
 
     private fun replaceTasksInAdapter(tasks: List<Task>?) {
