@@ -39,6 +39,7 @@ allprojects {
         androidTestVersion = '1.1.0-beta01'
         espressoVersion = '3.1.0-beta01'
         junitVersion = '4.12'
+        eventBusVersion = "3.1.1"
     }
 }
 

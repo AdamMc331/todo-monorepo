@@ -7,6 +7,7 @@ import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
+import org.greenrobot.eventbus.EventBus
 
 /**
  * This class is responsible for any business logic around displaying a list of tasks. The repository
@@ -21,7 +22,6 @@ import com.adammcneilly.todo.data.TaskRepository
 class TaskListViewModel(private val repository: TaskRepository) : ViewModel() {
     val tasks = MutableLiveData<List<Task>>()
     val newTask = MutableLiveData<Task>()
-    val navigationAction = MutableLiveData<NavigationAction>()
 
     init {
         getTasks()
@@ -40,6 +40,6 @@ class TaskListViewModel(private val repository: TaskRepository) : ViewModel() {
     }
 
     fun addButtonClicked() {
-        navigationAction.value = NavigationAction.ADD_TASK
+        EventBus.getDefault().post(NavigationAction.ADD_TASK)
     }
 }

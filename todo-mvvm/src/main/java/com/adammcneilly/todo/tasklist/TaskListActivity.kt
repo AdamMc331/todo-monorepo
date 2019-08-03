@@ -14,6 +14,8 @@ import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo.databinding.ActivityTaskListBinding
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 /**
  * This activity handles all of the UI functionality for displaying tasks. It gets those tasks from our [viewModel].
@@ -51,6 +53,16 @@ class TaskListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
+
     private fun setupViewModel() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskListViewModel::class.java)
         binding.viewModel = viewModel
@@ -58,11 +70,10 @@ class TaskListActivity : AppCompatActivity() {
         viewModel.tasks.observe(this, Observer(this::replaceTasksInAdapter))
 
         viewModel.newTask.observe(this, Observer(this::addTaskToAdapter))
-
-        viewModel.navigationAction.observe(this, Observer(this::handleNavigationAction))
     }
 
-    private fun handleNavigationAction(action: NavigationAction?) {
+    @Subscribe
+    fun onNavigationAction(action: NavigationAction) {
         @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
         when (action) {
             NavigationAction.ADD_TASK -> navigateToAddTask()
