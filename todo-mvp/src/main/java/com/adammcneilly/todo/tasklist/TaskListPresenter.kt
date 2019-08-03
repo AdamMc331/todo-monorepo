@@ -20,13 +20,9 @@ class TaskListPresenter(
         view?.navigateToAddTask()
     }
 
-    private fun getTasks() {
+    override fun viewCreated() {
         val tasks = model.getTasks()
         view?.showTasks(tasks)
-    }
-
-    override fun viewCreated() {
-        getTasks()
     }
 
     override fun viewDestroyed() {
