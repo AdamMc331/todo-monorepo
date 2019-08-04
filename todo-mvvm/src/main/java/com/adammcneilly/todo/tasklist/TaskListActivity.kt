@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adammcneilly.todo.NavigationAction
 import com.adammcneilly.todo.addtask.AddTaskActivity
-import com.adammcneilly.todo.data.Task
 import com.adammcneilly.todo.data.TaskRepository
 import com.adammcneilly.todo.databinding.ActivityTaskListBinding
 import org.greenrobot.eventbus.EventBus
@@ -23,7 +22,7 @@ import org.greenrobot.eventbus.Subscribe
 class TaskListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTaskListBinding
     private lateinit var viewModel: TaskListViewModel
-    private val adapter = TaskAdapter()
+    private val taskAdapter = TaskAdapter()
 
     private val viewModelFactory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -67,9 +66,7 @@ class TaskListActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TaskListViewModel::class.java)
         binding.viewModel = viewModel
 
-        viewModel.tasks.observe(this, Observer(this::replaceTasksInAdapter))
-
-        viewModel.newTask.observe(this, Observer(this::addTaskToAdapter))
+        viewModel.tasks.observe(this, Observer(taskAdapter::tasks::set))
     }
 
     @Subscribe
@@ -80,18 +77,8 @@ class TaskListActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceTasksInAdapter(tasks: List<Task>?) {
-        val newTasks = tasks ?: return
-        adapter.tasks = newTasks
-    }
-
-    private fun addTaskToAdapter(task: Task?) {
-        val newTask = task ?: return
-        adapter.tasks += newTask
-    }
-
     private fun initializeRecyclerView() {
-        binding.taskList.adapter = adapter
+        binding.taskList.adapter = taskAdapter
         binding.taskList.layoutManager = LinearLayoutManager(this)
     }
 
