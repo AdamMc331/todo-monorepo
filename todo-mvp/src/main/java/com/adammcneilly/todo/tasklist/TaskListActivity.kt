@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adammcneilly.todo.R
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.Task
-import com.adammcneilly.todo.data.TaskRepository
+import com.adammcneilly.todo.data.InMemoryTaskService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -22,7 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  */
 class TaskListActivity : AppCompatActivity(), TaskListContract.View {
     private val taskAdapter = TaskAdapter()
-    private val presenter = TaskListPresenter(this, TaskRepository())
+    private val presenter = TaskListPresenter(this, InMemoryTaskService())
     private var fab: FloatingActionButton? = null
     private var taskList: RecyclerView? = null
 
@@ -71,10 +71,6 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
     override fun onDestroy() {
         presenter.viewDestroyed()
         super.onDestroy()
-    }
-
-    override fun addTask(task: Task) {
-        taskAdapter.tasks += task
     }
 
     companion object {

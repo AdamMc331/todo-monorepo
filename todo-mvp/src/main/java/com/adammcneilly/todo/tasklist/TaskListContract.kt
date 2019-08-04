@@ -15,11 +15,10 @@ class TaskListContract {
     interface View {
         fun showTasks(tasks: List<Task>)
         fun navigateToAddTask()
-        fun addTask(task: Task)
     }
 
     /**
-     * The presenter is responsible for any business logic that does not belong in the UI. Here,
+     * The presenter is responsible for UI logic that we want to test that shouldn't be in the view. Here,
      * that means fetching the tasks, and handling click events that come from the view.
      *
      * This also includes being notified when the view is created and destroyed.

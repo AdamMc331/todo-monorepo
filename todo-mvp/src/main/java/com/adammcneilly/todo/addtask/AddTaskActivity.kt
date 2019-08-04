@@ -47,8 +47,8 @@ class AddTaskActivity : AppCompatActivity(), AddTaskContract.View {
         finish()
     }
 
-    override fun showInvalidDescriptionError() {
-        taskDescriptionEditText?.error = getString(R.string.description_must_not_be_empty)
+    override fun showDescriptionError(errorStringRes: Int) {
+        taskDescriptionEditText?.error = getString(errorStringRes)
     }
 
     companion object {

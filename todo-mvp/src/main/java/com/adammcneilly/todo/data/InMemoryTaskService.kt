@@ -7,7 +7,7 @@ import com.adammcneilly.todo.tasklist.TaskListContract
  * for being a data source. In many real world applications, this class would fetch from a database
  * or remote server. For this example, we'll stub in a default list.
  */
-class TaskRepository : TaskListContract.Model {
+class InMemoryTaskService : TaskListContract.Model {
     override fun getTasks(): List<Task> {
         return listOf(
                 Task("Sample task 1"),

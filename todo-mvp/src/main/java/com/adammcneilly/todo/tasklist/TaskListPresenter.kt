@@ -5,7 +5,7 @@ import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.Task
 
 /**
- * The presenter handles the business logic for displaying a list of tasks.
+ * The presenter handles the UI logic for displaying a list of tasks.
  *
  * Notice that dependency injection is used to supply a [view] and [model]. This helps enforce a
  * separation of concerns between the components, but also allows for testability so that we can
@@ -16,12 +16,14 @@ class TaskListPresenter(
         private val model: TaskListContract.Model
 ) : TaskListContract.Presenter {
 
+    private var tasks: List<Task> = emptyList()
+
     override fun addButtonClicked() {
         view?.navigateToAddTask()
     }
 
     override fun viewCreated() {
-        val tasks = model.getTasks()
+        tasks = model.getTasks()
         view?.showTasks(tasks)
     }
 
@@ -32,7 +34,8 @@ class TaskListPresenter(
     override fun returnedFromAddTask(data: Intent?) {
         val description = data?.getStringExtra(AddTaskActivity.DESCRIPTION_KEY).orEmpty()
         val newTask = Task(description)
-        view?.addTask(newTask)
+        tasks = tasks + newTask
+        view?.showTasks(tasks)
     }
 
 }

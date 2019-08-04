@@ -1,5 +1,6 @@
 package com.adammcneilly.todo.addtask
 
+import com.adammcneilly.todo.R
 import com.adammcneilly.todo.data.Task
 
 /**
@@ -16,7 +17,7 @@ class AddTaskPresenter(private var view: AddTaskContract.View?) : AddTaskContrac
         if (task != null && validateTask(task)) {
             view?.returnWithTask(task)
         } else {
-            view?.showInvalidDescriptionError()
+            view?.showDescriptionError(R.string.description_must_not_be_empty)
         }
     }
 

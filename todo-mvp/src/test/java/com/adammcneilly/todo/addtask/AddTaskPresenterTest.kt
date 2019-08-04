@@ -1,5 +1,6 @@
 package com.adammcneilly.todo.addtask
 
+import com.adammcneilly.todo.R
 import com.adammcneilly.todo.data.Task
 import com.nhaarman.mockitokotlin2.whenever
 import org.junit.Assert.assertFalse
@@ -28,7 +29,7 @@ class AddTaskPresenterTest {
 
         whenever(mockView.getTask()).thenReturn(invalidTask)
         presenter.submitButtonClicked()
-        verify(mockView, Times(1)).showInvalidDescriptionError()
+        verify(mockView, Times(1)).showDescriptionError(R.string.description_must_not_be_empty)
     }
 
     @Test
