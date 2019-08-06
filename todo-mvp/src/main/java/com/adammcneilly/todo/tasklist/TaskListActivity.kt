@@ -3,6 +3,7 @@ package com.adammcneilly.todo.tasklist
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +39,7 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
         initializeFAB()
 
         presenter.viewCreated()
+        presenter.restoreState(savedInstanceState)
     }
 
     private fun initializeFAB() {
@@ -52,6 +54,11 @@ class TaskListActivity : AppCompatActivity(), TaskListContract.View {
         if (requestCode == ADD_TASK_REQUEST && resultCode == Activity.RESULT_OK) {
             presenter.returnedFromAddTask(data)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putAll(presenter.getState())
+        super.onSaveInstanceState(outState)
     }
 
     private fun initializeRecyclerView() {

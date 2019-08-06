@@ -1,6 +1,7 @@
 package com.adammcneilly.todo.tasklist
 
 import android.content.Intent
+import android.os.Bundle
 import com.adammcneilly.todo.addtask.AddTaskActivity
 import com.adammcneilly.todo.data.Task
 
@@ -23,8 +24,10 @@ class TaskListPresenter(
     }
 
     override fun viewCreated() {
-        tasks = model.getTasks()
-        view?.showTasks(tasks)
+        if (tasks.isEmpty()) {
+            tasks = model.getTasks()
+            view?.showTasks(tasks)
+        }
     }
 
     override fun viewDestroyed() {
@@ -38,4 +41,22 @@ class TaskListPresenter(
         view?.showTasks(tasks)
     }
 
+    override fun restoreState(bundle: Bundle?) {
+        val prevTasks = bundle?.getParcelableArrayList<Task>(TASK_LIST).orEmpty()
+
+        if (prevTasks.isNotEmpty()) {
+            tasks = prevTasks
+            view?.showTasks(tasks)
+        }
+    }
+
+    override fun getState(): Bundle {
+        return Bundle().apply {
+            putParcelableArrayList(TASK_LIST, ArrayList(tasks))
+        }
+    }
+
+    companion object {
+        const val TASK_LIST = "task_list"
+    }
 }

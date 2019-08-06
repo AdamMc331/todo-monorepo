@@ -1,6 +1,7 @@
 package com.adammcneilly.todo.tasklist
 
 import android.content.Intent
+import android.os.Bundle
 import com.adammcneilly.todo.data.Task
 
 /**
@@ -28,6 +29,8 @@ class TaskListContract {
         fun viewCreated()
         fun viewDestroyed()
         fun returnedFromAddTask(data: Intent?)
+        fun getState(): Bundle
+        fun restoreState(bundle: Bundle?)
     }
 
     /**
